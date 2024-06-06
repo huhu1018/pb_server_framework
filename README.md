@@ -1,2 +1,5 @@
 # pb_server_framework
-Referen'ce sylar's C++ high-performance server framework
+Reference sylar's C++ high-performance server framework
+
+# How to run it
+bash ./build.sh
