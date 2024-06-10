@@ -123,4 +123,7 @@ std::string LogLevel::ToString(LogLevel::Level level)
     }
 }
 
+
+Logger::ptr root {new Logger("root")};
+
 }

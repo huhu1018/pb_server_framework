@@ -14,18 +14,12 @@
 #include <sys/syscall.h>
 
 
-#define RESET   "\033[0m"
-#define BLACK   "\033[30m"      /* Black */
-#define RED     "\033[31m"      /* Red */
-#define GREEN   "\033[32m"      /* Green */
-#define YELLOW  "\033[33m"      /* Yellow */
-#define BLUE    "\033[34m"      /* Blue */
-
+#define ROOT ::pb::root
 
 #define LOG_LEVEL(logger, level)                                               \
   		if (logger->getLevel() <= level)                                       \
  			 LogEventWrap(logger, LogEvent::ptr(new LogEvent(                  \
-                           level, __FILE__, __LINE__,                  \
+                           level, __FILE__, __LINE__,                          \
                            syscall(SYS_gettid), 0, time(0))))                  \
       					   .getSS()
 
@@ -35,6 +29,14 @@
 #define LOG_WARN(logger) LOG_LEVEL(logger, LogLevel::WARN)
 #define LOG_ERROR(logger) LOG_LEVEL(logger, LogLevel::ERROR)
 #define LOG_FATAL(logger) LOG_LEVEL(logger, LogLevel::FATAL)
+
+
+#define LOG_DEBUG_ROOT LOG_DEBUG(ROOT)
+#define LOG_INFO_ROOT LOG_INFO(ROOT)
+#define LOG_WARN_ROOT LOG_WARN(ROOT)
+#define LOG_ERROR_ROOT LOG_ERROR(ROOT)
+#define LOG_FATAL_ROOT LOG_FATAL(ROOT)
+
 
 
 namespace pb{
@@ -152,5 +154,6 @@ private:
 };
 
 
+extern Logger::ptr root;
 
 } // namespace pb

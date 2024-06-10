@@ -1,6 +1,11 @@
 #include "log.h"
 using namespace pb;
 
+void test(){
+    LOG_DEBUG_ROOT << "DEBUG!";
+}
+
+
 int main(int argc,char** argv){
     
     Logger::ptr lg(new Logger("PB"));
@@ -15,10 +20,13 @@ int main(int argc,char** argv){
     lg->addAppender(stdApd);
     lg->addAppender(fileApd);
     
-    LOG_DEBUG(lg) << "DEBUG!";
-    LOG_INFO(lg) << "INFO!";
-    LOG_WARN(lg) << "WARN!";
-    LOG_ERROR(lg) << "ERROR!";
-    LOG_FATAL(lg) << "FATAL!";
+    pb::root->addAppender(stdApd);
+    pb::root->addAppender(fileApd);
+    test();
+    LOG_DEBUG_ROOT << "DEBUG!";
+    LOG_INFO_ROOT << "INFO!";
+    LOG_WARN_ROOT << "WARN!";
+    LOG_ERROR_ROOT << "ERROR!";
+    LOG_FATAL_ROOT << "FATAL!";
     return 0;
 }

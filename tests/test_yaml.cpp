@@ -1,16 +1,16 @@
-#include <yaml-cpp/yaml.h>
 #include <iostream>
+#include "config.h"
 
 int main(int argc,char** argv){
-	YAML::Node node = YAML::LoadFile("../config/test.yaml");
-	std::cout << node["name"].as<std::string>() << std::endl;
-    std::cout << node["sex"].as<std::string>() << std::endl;
-    std::cout << node["age"].as<int>() << std::endl;//18
-    std::cout << node["system"]["port"].as<std::string>() << std::endl;
-    std::cout << node["system"]["value"].as<std::string>() << std::endl;
-    for(auto it = node["system"]["int_vec"].begin(); it != node["system"]["int_vec"].end(); ++it){
-		std::cout << *it <<" ";
+
+
+	YAML::Node root = YAML::LoadFile("../config/test.yaml");
+	std::list<std::pair<std::string, const YAML::Node>> all_nodes;
+	// 将root中的结点进行解析，存放到all_nodes中
+	ListAllMember("", root, all_nodes);
+	// 遍历输出all_nodes
+	for (auto it = all_nodes.begin(); it != all_nodes.end(); it++){
+		std::cout << it->first << std::endl;
 	}
-	std::cout << std::endl;
 	return 0;
 }
